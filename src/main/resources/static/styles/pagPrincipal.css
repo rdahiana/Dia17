@@ -1,0 +1,62 @@
+
+body {
+    background-image: url('fondo.jpg'); /* Establece la imagen como fondo */
+    background-repeat: no-repeat; /* Evita la repetición de la imagen */
+    background-attachment: scroll; /* Hace que la imagen de fondo se desplace con el contenido */
+    background-position: center top; /* Centra la imagen horizontalmente y la alinea hacia arriba verticalmente */
+    background-size: 100% ; /* Estira la imagen horizontalmente */
+}
+
+
+#logo {
+    width: 80px;
+    height: auto;
+}
+
+#facultad-politecnica {
+    font-size: 24px;
+    margin-bottom: 5px; /* Ajusta el espacio entre el logo y el texto */
+    color: rgb(68, 93, 137);
+    font-weight: bold;
+}
+
+#universidad {
+    font-size: 18px;
+    color: rgb(68, 93, 137);
+}
+#inicio {
+    background-color: white;
+}
+
+.form-control-search {
+    width: 350px; /* Ancho deseado */
+}
+
+.nav-item {
+    margin-left: 35px; /* Mueve el enlace "Registrar" hacia la derecha */
+    font-weight: bold; /* Hace el texto más grueso */
+
+
+}
+
+#Registrar .nav-link.active {
+    color: rgb(68, 93, 137);
+}
+
+
+.btn-outline-success {
+    padding: 0; /* Elimina el relleno para que la imagen llene todo el botón */
+    border: none; /* Elimina el borde */
+    background: transparent; /* Hace que el fondo del botón sea transparente */
+}
+
+.btn-outline-success img {
+    width: 40px; /* Establece el ancho deseado para la imagen */
+    height: 40px; /* Establece la altura deseada para la imagen */
+    border: 1px solid transparent; /* Asegura que el borde sea transparente por defecto */
+}
+
+.btn-outline-success:active img,
+.btn-outline-success:focus img {
+    border-color:  rgb(68, 93, 137); /* Cambia el color del borde a azul cuando se hace clic o se enfoca */
+}

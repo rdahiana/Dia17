@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 
@@ -20,7 +19,6 @@ public class UsuarioServiceImp implements UsuarioService{
     @Override
     @Transactional(readOnly = true) //esta anotacion indica que es solo de lectura (no guarda, actualiza ni elimina) este metodo
     public List<Usuario> listaUsuarios() {
-
         return (List<Usuario>) usuarioRepository.findAll() ;
     }
 
@@ -30,10 +28,11 @@ public class UsuarioServiceImp implements UsuarioService{
         usuarioRepository.save(usuario);
     }
 
-    //busca un auto en la BD por su ID y lo devuelve
+    //busca un usuario en la BD por su ID y lo devuelve
     @Override
-    public Usuario buscarUsuario(Usuario usuario) {
-        return usuarioRepository.findById(usuario.getId()).orElse(null);
+    @Transactional(readOnly = true)
+    public Usuario buscarUsuario(Long ci) {
+        return usuarioRepository.findById(ci).orElse(null);
     }
 
 }

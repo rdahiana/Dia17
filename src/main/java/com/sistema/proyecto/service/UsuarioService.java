@@ -13,5 +13,5 @@ public interface UsuarioService {
     //metodo para guardar un usuario
     public void guardar(Usuario usuario);
 
-    public Usuario buscarUsuario(Usuario usuario);
+    public Usuario buscarUsuario(Long ci);
 }

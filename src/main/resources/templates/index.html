@@ -28,12 +28,14 @@
                             <a class="nav-link active" aria-current="page" href="/">Inicio</a>
                         </li>
                     </ul>
-                    <form class="d-flex" role="search">
+
+                    <form action="buscar" class="d-flex" role="search">
                         <input class="form-control form-control-search me-2" type="search" placeholder="Buscar" aria-label="Search">
-                        <button href="/buscar" class="btn btn-outline-success" type="submit">
+                        <button class="btn btn-outline-success" type="submit">
                             <img th:src="@{/images/lupa.png}" />
                         </button>
                     </form>
+
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item" id="Registrar">
                             <a class="nav-link active" aria-current="page" href="/registrar">Registrar</a>

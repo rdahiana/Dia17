@@ -39,8 +39,12 @@ public class ControllerRest {
 
     @GetMapping("/registrar")
     public String registrar(Model model){
-        List<Usuario> usuarios = usuarioService.listaUsuarios(); // Renamed 'usuario' to 'usuarios'
-        model.addAttribute("usuarios", usuarios); // Changed 'addAllAttribute' to 'addAttribute' and 'usuario' to 'usuarios'
+        // CODIGO ANTIGUO
+//        List<Usuario> usuarios = usuarioService.listaUsuarios(); // Renamed 'usuario' to 'usuarios'
+//        model.addAttribute("usuario", usuarios); // Changed 'addAllAttribute' to 'addAttribute' and 'usuario' to 'usuarios'
+        // CODIGO ANTIGUO
+        Usuario usuario = new Usuario();
+        model.addAttribute("usuario", usuario);
         return "registrar";
     }
     //esto gestiona la accion del formulario *especificamos en el html la accion a la cual estaria asociada(th:action)*

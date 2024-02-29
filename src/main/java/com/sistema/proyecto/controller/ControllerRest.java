@@ -35,19 +35,21 @@ public class ControllerRest {
     public String inicio(){
         return "index";
     }
+
     //maneja la solicitud de mostrar el formulario para agregar un nuevo usuario
 
     @GetMapping("/registrar")
     public String registrar(Model model){
-        // CODIGO ANTIGUO
-//        List<Usuario> usuarios = usuarioService.listaUsuarios(); // Renamed 'usuario' to 'usuarios'
-//        model.addAttribute("usuario", usuarios); // Changed 'addAllAttribute' to 'addAttribute' and 'usuario' to 'usuarios'
-        // CODIGO ANTIGUO
         Usuario usuario = new Usuario();
+        //Entonces, esta línea de código está diciendo que queremos hacer disponible el
+        // objeto usuario en la vista con el nombre "usuario", de modo que la vista pueda
+        // acceder a sus datos y mostrarlos adecuadamente.
         model.addAttribute("usuario", usuario);
         return "registrar";
     }
-    //esto gestiona la accion del formulario *especificamos en el html la accion a la cual estaria asociada(th:action)*
+
+    //esto gestiona la accion del formulario *especificamos en el html la accion
+    // a la cual estaria asociada(th:action)*
 
     @PostMapping("/guardar")
     public String guardar(@Valid Usuario usuario, Errors error){ //valid es para que Spring se ocupe de validar automaticamente los datos del objeto (de acuerdo a las reglas en la clase del objeto)

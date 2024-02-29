@@ -4,10 +4,13 @@ import com.sistema.proyecto.model.Usuario;
 import com.sistema.proyecto.service.UsuarioService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.ui.Model;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -52,11 +55,19 @@ public class ControllerRest {
     // a la cual estaria asociada(th:action)*
 
     @PostMapping("/guardar")
-    public String guardar(@Valid Usuario usuario, Errors error){ //valid es para que Spring se ocupe de validar automaticamente los datos del objeto (de acuerdo a las reglas en la clase del objeto)
-        if(error.hasErrors()){ //si hay errores devuelve nuevamente para que se corrija los errores
-            return "/registrar";
+    public String guardar(@ModelAttribute("usuario") Usuario usuario, BindingResult result, RedirectAttributes redirectAttributes) {
+        if (result.hasErrors()) {
+            return "registrar"; // Retorna la página de registro si hay errores
         }
+
+        // Guardar el usuario utilizando el servicio de usuario
         usuarioService.guardar(usuario);
-        return "/registrar";
+
+        // Agregar un mensaje de éxito al atributo flash para que se muestre en la próxima solicitud
+        redirectAttributes.addFlashAttribute("mensaje", "¡Usuario guardado correctamente!");
+
+        // Redirigir a la página de registro para mostrar el mensaje de éxito
+        return "redirect:/inicio";
     }
+
 }

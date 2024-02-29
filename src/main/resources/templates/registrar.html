@@ -8,38 +8,75 @@
 </head>
 <body>
 
-<div layout:include="index :: content">
-    <div class="container contenedor-principal">
-        <h1 class="text-center">Registrar</h1>
+<div class="container contenedor-principal">
+    <h1 class="text-center">Registrar un nuevo usuario</h1>
 
-        <form th:action="@{/guardar}" method="post" th:object="${usuario}">
-            <input type="hidden" name="id" th:field="*{ci}">
+    <form id="registroForm" th:action="@{/guardar}" th:object="${usuario}" method="post">
+        <label for="ci">CI:</label>
+        <input type="text" id="ci" th:field="*{ci}" required>
+        <br>
 
-            <label for="nombre">Nombre: </label>
-            <input class="form-control" id="nombre" type="text" name="nombre" th:field="*{nombre}"/>
-            <span class="error" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">ERROR EN EL NOMBRE</span>
-            <br>
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" th:field="*{nombre}" required>
+        <br>
 
-            <label for="apellido">Apellido: </label>
-            <input class="form-control" id="apellido" type="text" name="apellido" th:field="*{apellido}"/>
-            <span class="error" th:if="${#fields.hasErrors('apellido')}" th:errors="*{apellido}">ERROR EN APELLIDO</span>
-            <br>
+        <label for="apellido">Apellido:</label>
+        <input type="text" id="apellido" th:field="*{apellido}" required>
+        <br>
 
-            <label for="carrera">Carrera: </label>
-            <input class="form-control" id="carrera" type="text" name="carrera" th:field="*{carrera}"/>
-            <span class="error" th:if="${#fields.hasErrors('carrera')}" th:errors="*{carrera}">ERROR EN LA CARRERA</span>
-            <br>
+        <label for="carrera">Carrera:</label>
+        <input type="text" id="carrera" th:field="*{carrera}" required>
+        <br>
 
-            <label for="semestre">Semestre: </label>
-            <input class="form-control" id="semestre" type="text" name="semestre" th:field="*{semestre}"/>
-            <span class="error" th:if="${#fields.hasErrors('semestre')}" th:errors="*{semestre}">ERROR EN EL SEMESTRE</span>
-            <br>
+        <label for="semestre">Semestre:</label>
+        <input type="text" id="semestre" th:field="*{semestre}" required>
+        <br>
 
-            <button class="btn btn-primary" type="submit">Guardar</button>
-        </form>
+        <button type="button" onclick="submitForm()">Guardar</button>
+    </form>
+</div>
+
+<!-- Modal de Éxito -->
+<div class="modal fade" id="exitoModal" tabindex="-1" aria-labelledby="exitoModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exitoModalLabel">Éxito</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                ¡Usuario guardado correctamente!
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Aceptar</button>
+            </div>
+        </div>
     </div>
 </div>
 
+<!-- Bootstrap Bundle JS (incluye Popper) -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script>
+    function submitForm() {
+        // Detener el envío del formulario
+        event.preventDefault();
+
+        // Envía el formulario mediante AJAX
+        $.ajax({
+            type: "POST",
+            url: $('#registroForm').attr('action'),
+            data: $('#registroForm').serialize(),
+            success: function(response) {
+                // Muestra el modal de éxito
+                $('#exitoModal').modal('show');
+            },
+            error: function(xhr, status, error) {
+                // Manejar errores si es necesario
+            }
+        });
+    }
+</script>
 </body>
 </html>

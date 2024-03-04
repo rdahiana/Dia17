@@ -1,0 +1,52 @@
+
+.container.contenedor-principal {
+    background-color: rgba(255, 255, 255, 0.8); /* Fondo blanco transparente */
+    border-radius: 20px; /* Bordes ovalados */
+    padding: 20px;
+    margin: auto; /* Centra horizontalmente */
+    margin-top: 80px; /* Espacio en la parte superior */
+    max-width: 500px; /* Ancho máximo del contenedor */
+}
+
+h1.text-center {
+    font-size: 24px; /* Cambiar el tamaño del texto a 24px */
+}
+
+
+.container.contenedor-principal h1 {
+    color: rgb(68, 93, 137);
+}
+
+.form-control {
+    border: none;
+    border-bottom: 1px solid #ced4da; /* Línea inferior gris */
+    border-radius: 0; /* Borde inferior cuadrado */
+    margin-bottom: 20px; /* Espacio entre los campos de formulario */
+}
+
+.form-control:focus {
+    border-color: #80bdff; /* Color de la línea inferior cuando se enfoca */
+    box-shadow: none; /* Quita la sombra al enfocar */
+}
+
+.btn-primary {
+    background-color: rgb(68, 93, 137); /* Color de fondo del botón */
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #476e9e; /* Color de fondo del botón al pasar el ratón */
+}
+
+.btn-primary:focus {
+    box-shadow: none; /* Quita la sombra al enfocar */
+}
+
+.modal-content {
+    background-color: rgba(255, 255, 255, 0.8); /* Fondo blanco transparente */
+    border-radius: 20px; /* Bordes ovalados */
+}
+.form-label {
+    color: #476e9e;
+    font-weight: bold;
+}

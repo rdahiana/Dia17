@@ -1,0 +1,41 @@
+body {
+    font-family: Arial, sans-serif; /* Cambia la fuente del texto */
+    background-color: #f8f9fa; /* Establece un color de fondo para el cuerpo */
+}
+.center-table {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+h1 {
+    color: #476e9e; /* Establece el color del título */
+    font-size: 24px;
+    text-align: center;
+}
+
+table {
+    border-collapse: collapse; /* Fusiona los bordes de la tabla */
+}
+
+th, td {
+    padding: 12px; /* Añade relleno a las celdas */
+    text-align: left; /* Alinea el texto a la izquierda */
+}
+
+th {
+    background-color: #ffffff; /* Establece el color de fondo de las celdas de encabezado */
+    border-bottom: 1px solid #dee2e6; /* Añade un borde inferior a las celdas de encabezado */
+    color: #476e9e;
+}
+
+td {
+    background-color: rgba(255, 255, 255, 0.7); /* Establece el color de fondo de las celdas de datos con transparencia */
+    border-bottom: 1px solid #dee2e6; /* Añade un borde inferior a las celdas de datos */
+}
+
+tr:last-child td {
+    border-bottom: none; /* Elimina el borde inferior de la última fila de datos */
+}

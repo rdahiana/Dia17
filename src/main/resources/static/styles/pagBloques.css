@@ -1,0 +1,47 @@
+/* Estilos para la página de bloques */
+body {
+    font-family: Arial, sans-serif; /* Cambia la fuente del texto */
+    background-color: #f8f9fa; /* Establece un color de fondo para el cuerpo */
+    padding: 20px; /* Espaciado interno */
+}
+
+.center-table {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+h1 {
+    color: #476e9e; /* Establece el color del título */
+    font-size: 24px;
+    text-align: center;
+}
+
+.accordion {
+    width: 80%; /* Ancho del acordeón */
+    max-width: 600px; /* Ancho máximo del acordeón */
+    margin: 0 auto; /* Centrar horizontalmente */
+}
+
+.accordion-item {
+    margin-bottom: 15px; /* Espaciado entre elementos del acordeón */
+}
+
+.accordion-button {
+    background-color: #476e9e; /* Color de fondo del botón del acordeón */
+    color: #fff; /* Color del texto del botón del acordeón */
+    width: 100%; /* Ancho del botón del acordeón */
+    padding: 10px 20px; /* Espaciado interno del botón */
+}
+
+.accordion-button:hover {
+    background-color: #2f4b68; /* Cambio de color al pasar el ratón */
+}
+
+.accordion-body {
+    background-color: #fff; /* Color de fondo del cuerpo del acordeón */
+    color: #212529; /* Color del texto del cuerpo del acordeón */
+    border: 1px solid #dee2e6; /* Borde del cuerpo del acordeón */
+    border-top: none; /* Eliminar borde superior */
+}

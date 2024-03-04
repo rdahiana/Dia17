@@ -11,5 +11,5 @@ public class Bloque {
     @Id
     private char id_bloque ;
     private String nombre_wifi;
-    private String Contraseña;
+    private String contraseña;
 }

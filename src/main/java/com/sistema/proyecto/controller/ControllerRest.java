@@ -77,10 +77,10 @@ public class ControllerRest {
         Usuario usuario = usuarioService.buscarUsuario(ci);
         if (usuario != null) {
             // Si se encontró el usuario, redireccionar a la página correspondiente
-            return "redirect:/bloques.html";
+            return "redirect:/bloques";
         } else {
             // Si no se encontró el usuario, redireccionar a la página de registro
-            return "redirect:/registrar.html";
+            return "redirect:/registrar";
         }
     }
 

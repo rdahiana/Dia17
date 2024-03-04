@@ -8,47 +8,49 @@
 </head>
 <body>
 
-<div class="container contenedor-principal">
-    <h1 class="text-center">Registrar un nuevo usuario</h1>
+<div layout:fragment="content">
+    <div class="container contenedor-principal">
+        <h1 class="text-center">Registrar un nuevo usuario</h1>
 
-    <form id="registroForm" th:action="@{/guardar}" th:object="${usuario}" method="post">
-        <label for="ci">CI:</label>
-        <input type="text" id="ci" th:field="*{ci}" required>
-        <br>
+        <form id="registroForm" th:action="@{/guardar}" th:object="${usuario}" method="post">
+            <label for="ci">CI:</label>
+            <input type="text" id="ci" th:field="*{ci}" required>
+            <br>
 
-        <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" th:field="*{nombre}" required>
-        <br>
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" th:field="*{nombre}" required>
+            <br>
 
-        <label for="apellido">Apellido:</label>
-        <input type="text" id="apellido" th:field="*{apellido}" required>
-        <br>
+            <label for="apellido">Apellido:</label>
+            <input type="text" id="apellido" th:field="*{apellido}" required>
+            <br>
 
-        <label for="carrera">Carrera:</label>
-        <input type="text" id="carrera" th:field="*{carrera}" required>
-        <br>
+            <label for="carrera">Carrera:</label>
+            <input type="text" id="carrera" th:field="*{carrera}" required>
+            <br>
 
-        <label for="semestre">Semestre:</label>
-        <input type="text" id="semestre" th:field="*{semestre}" required>
-        <br>
+            <label for="semestre">Semestre:</label>
+            <input type="text" id="semestre" th:field="*{semestre}" required>
+            <br>
 
-        <button type="button" onclick="submitForm()">Guardar</button>
-    </form>
-</div>
+            <button type="button" onclick="submitForm()">Guardar</button>
+        </form>
+    </div>
 
-<!-- Modal de Éxito -->
-<div class="modal fade" id="exitoModal" tabindex="-1" aria-labelledby="exitoModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exitoModalLabel">Éxito</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                ¡Usuario guardado correctamente!
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Aceptar</button>
+    <!-- Modal de Éxito -->
+    <div class="modal fade" id="exitoModal" tabindex="-1" aria-labelledby="exitoModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exitoModalLabel">Éxito</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ¡Usuario guardado correctamente!
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Aceptar</button>
+                </div>
             </div>
         </div>
     </div>

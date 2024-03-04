@@ -2,10 +2,8 @@ package com.sistema.proyecto.controller;
 
 import com.sistema.proyecto.model.Usuario;
 import com.sistema.proyecto.service.UsuarioService;
-import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,12 +14,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 
 @Controller
-public class ControllerRest {
+public class ControllerUsuario {
 
     private final UsuarioService usuarioService;
 
     // Constructor injection to inject UsuarioService
-    public ControllerRest(UsuarioService usuarioService) {
+    public ControllerUsuario(UsuarioService usuarioService) {
         this.usuarioService = usuarioService;
     }
 
@@ -68,21 +66,28 @@ public class ControllerRest {
         // Agregar un mensaje de éxito al atributo flash para que se muestre en la próxima solicitud
         redirectAttributes.addFlashAttribute("mensaje", "¡Usuario guardado correctamente!");
 
-        // Redirigir a la página de registro para mostrar el mensaje de éxito
+        // Redirigir a la página de inicio
         return "redirect:/inicio";
     }
 
+
     @GetMapping("/buscar")
-    public String buscarUsuarioPorCI(@RequestParam("ci") Long ci, Model model) {
-        Usuario usuario = usuarioService.buscarUsuario(ci);
-        if (usuario != null) {
-            // Si se encontró el usuario, redireccionar a la página correspondiente
-            return "redirect:/bloques";
-        } else {
-            // Si no se encontró el usuario, redireccionar a la página de registro
+    public String buscarUsuarioPorCI(@RequestParam(name = "ci", required = false) Long ci, Model model) {
+        if (ci == null) {
+            // Si el parámetro ci está vacío o no está presente, redirigir a la página de registro
             return "redirect:/registrar";
+        } else {
+            Usuario usuario = usuarioService.buscarUsuario(ci);
+            if (usuario != null) {
+                // Si se encontró el usuario, redireccionar a la página correspondiente
+                return "redirect:/bloques";
+            } else {
+                // Si no se encontró el usuario, redireccionar a la página de registro
+                return "redirect:/registrar";
+            }
         }
     }
+
 
 
 }

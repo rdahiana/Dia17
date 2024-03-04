@@ -73,8 +73,16 @@ public class ControllerRest {
     }
 
     @GetMapping("/buscar")
-    public Usuario buscarUsuarioPorCi(@RequestParam("ci") Long ci) {
-        return usuarioService.buscarUsuario(ci);
+    public String buscarUsuarioPorCI(@RequestParam("ci") Long ci, Model model) {
+        Usuario usuario = usuarioService.buscarUsuario(ci);
+        if (usuario != null) {
+            // Si se encontró el usuario, redireccionar a la página correspondiente
+            return "redirect:/bloques.html";
+        } else {
+            // Si no se encontró el usuario, redireccionar a la página de registro
+            return "redirect:/registrar.html";
+        }
     }
+
 
 }

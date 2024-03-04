@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -30,10 +31,11 @@ public class ControllerRest {
     }
 
     @GetMapping("/listar")
-    public String listar(){
-        return "listar";
+    public String listar(Model model){
+        List<Usuario> usuarios = usuarioService.listaUsuarios();
+        model.addAttribute("usuarios", usuarios);
+        return "listar"; // Reemplaza "nombre_de_tu_html" con el nombre de tu archivo HTML
     }
-
     @GetMapping("/inicio")
     public String inicio(){
         return "index";
@@ -68,6 +70,11 @@ public class ControllerRest {
 
         // Redirigir a la página de registro para mostrar el mensaje de éxito
         return "redirect:/inicio";
+    }
+
+    @GetMapping("/buscar")
+    public Usuario buscarUsuarioPorCi(@RequestParam("ci") Long ci) {
+        return usuarioService.buscarUsuario(ci);
     }
 
 }

@@ -11,6 +11,7 @@
 </head>
 <body>
 <!-- Content -->
+
 <div layout:fragment="content" >
 
     <!-- Navbar -->
@@ -35,12 +36,13 @@
                             </li>
                         </ul>
 
-                        <form action="buscar" class="d-flex" role="search">
-                            <input class="form-control form-control-search me-2" type="search" placeholder="Buscar" aria-label="Search">
+                        <form id="buscarForm" action="buscar" class="d-flex" role="search">
+                            <input class="form-control form-control-search me-2" type="search" id="ci" placeholder="Buscar" aria-label="Search">
                             <button class="btn btn-outline-success" type="submit">
                                 <img th:src="@{/images/lupa.png}" />
                             </button>
                         </form>
+
 
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item" id="Registrar">

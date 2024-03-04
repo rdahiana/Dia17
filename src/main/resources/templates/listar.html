@@ -1,19 +1,33 @@
 <!DOCTYPE html>
-<html layout:decorate="~{index}">
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Task List</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listado de Productos</title>
 </head>
 <body>
-<!-- /* Content of this page will be decorated by the elements of layout.html (task/layout) */ -->
 <div layout:fragment="content">
-    <table class="table table-bordered table-striped">
+<h1>REGISTRADOS</h1>
+
+    <table>
         <thead>
         <tr>
-            <td>Bloque</td>
-            <td>Passeord</td>
+            <th>CI</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Carrera</th>
+            <th>Semestre</th>
         </tr>
         </thead>
         <tbody>
+        <!-- Itera sobre la lista de usuarios y muestra cada usuario en una fila de la tabla -->
+        <tr th:each="usuario : ${usuarios}">
+            <td th:text="${usuario.ci}">ID</td>
+            <td th:text="${usuario.nombre}">Nombre</td>
+            <td th:text="${usuario.apellido}">Email</td>
+            <td th:text="${usuario.carrera}">Nombre</td>
+            <td th:text="${usuario.semestre}">Email</td>
+        </tr>
         </tbody>
     </table>
 </div>

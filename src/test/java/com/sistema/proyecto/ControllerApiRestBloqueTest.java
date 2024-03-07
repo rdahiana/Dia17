@@ -17,7 +17,6 @@ import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -39,20 +38,18 @@ public class ControllerApiRestBloqueTest {
 
     @Test
     public void testObtenerBloques() throws Exception {
-
-
+        // Crear algunos usuarios
         Bloque bloque1 = new Bloque();
         bloque1.setId_bloque('A');
-        bloque1.setNombre_wifi("Wifi1");
-        bloque1.setContraseña("contraseña1");
-
+        bloque1.setNombre_wifi("NombreWifiA");
+        bloque1.setContraseña("ContraseñaWifiA");
 
         Bloque bloque2 = new Bloque();
         bloque2.setId_bloque('B');
-        bloque2.setNombre_wifi("Wifi2");
-        bloque2.setContraseña("contraseña2");
+        bloque2.setNombre_wifi("NombreWifiB");
+        bloque2.setContraseña("ContraseñaWifiB");
 
-        // Agregar los bloques a la lista
+        // Agregar los usuarios a la lista
         ArrayList<Bloque> bloques = new ArrayList<>();
         bloques.add(bloque1);
         bloques.add(bloque2);
@@ -62,76 +59,77 @@ public class ControllerApiRestBloqueTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$[0].id_bloque").value('A'))
-                .andExpect(jsonPath("$[0].Nombre_wifi").value("Wifi1"))
-                .andExpect(jsonPath("$[0].Contraseña").value("contraseña1"))
-
-                .andExpect(jsonPath("$[1].id_bloque").value("B"))
-                .andExpect(jsonPath("$[1].Nombre_wifi").value("Wifi2"))
-                .andExpect(jsonPath("$[1].Contraseña").value("contraseña2"));
-        verify(bloqueServiceImp, times(1)).obtenerBloques();
-        verifyNoMoreInteractions(bloqueServiceImp);
+                .andExpect(jsonPath("$[0].nombre_wifi").value("NombreWifiA"))
+                .andExpect(jsonPath("$[0].contraseña").value("ContraseñaWifiA"))
+                .andExpect(jsonPath("$[1].id_bloque").value('B'))
+                .andExpect(jsonPath("$[1].nombre_wifi").value("NombreWifiB"))
+                .andExpect(jsonPath("$[1].contraseña").value("ContraseñaWifiB"));
     }
-
     @Test
     public void testObtenerPorID() throws Exception {
-        // Definir el ID del bloque
+        // Definir el ID del bloque de prueba
         char idBloque = 'A';
 
-        // Crear un bloque con datos necesarios
+        // Crear un bloque de prueba
         Bloque bloque = new Bloque();
         bloque.setId_bloque(idBloque);
         bloque.setNombre_wifi("nombre_wifi");
         bloque.setContraseña("contraseña");
 
-        // Configurar el comportamiento del servicio bloqueServiceImp
+        // Configurar el servicio para devolver el bloque de prueba cuando se llama con el ID correspondiente
         when(bloqueServiceImp.obtenerPorID(idBloque)).thenReturn(Optional.of(bloque));
 
+        // Realizar la solicitud HTTP GET al endpoint /rest-bloque/{id}
         mockMvc.perform(get("/rest-bloque/{id}", idBloque))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-
+                .andExpect(status().isOk()) // Verificar que la respuesta es 200 OK
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON)) // Verificar que el tipo de contenido es JSON
                 // Verificar que el JSON devuelto contiene los datos esperados del bloque
                 .andExpect(jsonPath("$.id_bloque").value('A'))
-                .andExpect(jsonPath("$.Nombre_wifi").value("nombre_wifi"))
-                .andExpect(jsonPath("$.Contraseña").value("contraseña"));
+                .andExpect(jsonPath("$.nombre_wifi").value("nombre_wifi"))
+                .andExpect(jsonPath("$.contraseña").value("contraseña"));
+
+        // Verificar que se llamó al método obtenerPorID() del servicio una vez con el ID correspondiente y no se realizaron más interacciones
+        verify(bloqueServiceImp, times(1)).obtenerPorID(idBloque);
+        verifyNoMoreInteractions(bloqueServiceImp);
     }
-
-
 
     @Test
     public void testGuardarBloque() throws Exception {
-        // Crear un bloque con datos necesarios para guardar
+        // Crear un bloque de prueba para guardar
         Bloque bloque = new Bloque();
         bloque.setId_bloque('A');
         bloque.setNombre_wifi("wifiA");
         bloque.setContraseña("123456");
 
-        // Configurar el comportamiento del servicio bloqueServiceImp
+        // Configurar el servicio para devolver el bloque de prueba cuando se llama con cualquier bloque
         when(bloqueServiceImp.guardarBloque(any(Bloque.class))).thenReturn(bloque);
 
-        // Realizar una solicitud HTTP POST al endpoint /rest-bloque/save con el bloque en formato JSON
+        // Realizar una solicitud HTTP POST al endpoint /rest-bloque/save con el bloque de prueba en formato JSON
         mockMvc.perform(post("/rest-bloque/save")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"id_bloque\":\"A\", \"nombre_wifi\":\"wifiA\", \"contraseña\":\"123456\"}"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON));
-    }
+                .andExpect(status().isOk()) // Verificar que la respuesta es 200 OK
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON)); // Verificar que el tipo de contenido es JSON
 
+        // Verificar que se llamó al método guardarBloque() del servicio una vez con cualquier bloque y no se realizaron más interacciones
+        verify(bloqueServiceImp, times(1)).guardarBloque(any(Bloque.class));
+        verifyNoMoreInteractions(bloqueServiceImp);
+    }
 
     @Test
     public void testEliminarBloque() throws Exception {
         // Definir el ID del bloque que se va a eliminar
         char idBloque = 'A';
 
-        // Configurar el comportamiento del servicio bloqueServiceImp
+        // Configurar el servicio para devolver true cuando se llama al método eliminarBloque() con el ID correspondiente
         when(bloqueServiceImp.eliminarBloque(idBloque)).thenReturn(true);
 
         // Realizar una solicitud HTTP DELETE al endpoint /rest-bloque/{id} con el ID del bloque que se va a eliminar
         mockMvc.perform(delete("/rest-bloque/{id}", idBloque))
-                .andExpect(status().isOk())
-                .andExpect(content().string("Se elimino el bloque  " + idBloque));
+                .andExpect(status().isOk()) // Verificar que la respuesta es 200 OK
+                .andExpect(content().string("Se elimino el bloque  " + idBloque)); // Verificar que el cuerpo de la respuesta es el mensaje esperado
 
-        // Verificar que se llamó al método eliminarBloque() del servicio con el ID correcto
+        // Verificar que se llamó al método eliminarBloque() del servicio una vez con el ID correspondiente y no se realizaron más interacciones
         verify(bloqueServiceImp, times(1)).eliminarBloque(idBloque);
         verifyNoMoreInteractions(bloqueServiceImp);
     }

@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 
@@ -35,6 +37,28 @@ public class UsuarioServiceImp implements UsuarioService{
         return usuarioRepository.findById(ci).orElse(null);
     }
 
+    //----------------ESTO YA FORMA PARTE DEL API REST----------------------
+
+    public ArrayList<Usuario> obtenerUsuarios() {
+        return (ArrayList<Usuario>) usuarioRepository.findAll();
+    }
+
+    public Usuario guardarUsuario(Usuario usuario) {
+        return usuarioRepository.save(usuario);
+    }
+
+    public Optional<Usuario> obtenerPorCi(Long ci) {
+        return usuarioRepository.findById(ci);
+    }
+
+    public boolean eliminarUsuario (Long ci){
+        try{
+            usuarioRepository.deleteById(ci);
+            return true;
+        }catch(Exception e ){
+            return false;
+        }
+    }
 }
 
 

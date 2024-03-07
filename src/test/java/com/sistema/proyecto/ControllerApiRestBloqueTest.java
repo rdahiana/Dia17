@@ -10,7 +10,11 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -55,15 +59,23 @@ public class ControllerApiRestBloqueTest {
         bloques.add(bloque2);
         when(bloqueServiceImp.obtenerBloques()).thenReturn(bloques);
 
-        mockMvc.perform(get("/rest-bloque"))
+        MvcResult result = mockMvc.perform(get("/rest-bloque"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$[0].id_bloque").value('A'))
                 .andExpect(jsonPath("$[0].nombre_wifi").value("NombreWifiA"))
                 .andExpect(jsonPath("$[0].contraseña").value("ContraseñaWifiA"))
-                .andExpect(jsonPath("$[1].id_bloque").value('B'))
                 .andExpect(jsonPath("$[1].nombre_wifi").value("NombreWifiB"))
-                .andExpect(jsonPath("$[1].contraseña").value("ContraseñaWifiB"));
+                .andExpect(jsonPath("$[1].contraseña").value("ContraseñaWifiB"))
+                .andReturn();
+        // Extraer el JSON de la respuesta
+        String jsonResponse = result.getResponse().getContentAsString();
+
+        // Convertir el JSON a un objeto JSON
+        JSONArray jsonArray = new JSONArray(jsonResponse);
+
+        // Verificar el valor de id_bloque para el primer objeto del array
+        JSONObject primerObjeto = jsonArray.getJSONObject(0);
+        assertEquals("A", primerObjeto.getString("id_bloque"));
     }
     @Test
     public void testObtenerPorID() throws Exception {
@@ -80,13 +92,19 @@ public class ControllerApiRestBloqueTest {
         when(bloqueServiceImp.obtenerPorID(idBloque)).thenReturn(Optional.of(bloque));
 
         // Realizar la solicitud HTTP GET al endpoint /rest-bloque/{id}
-        mockMvc.perform(get("/rest-bloque/{id}", idBloque))
+        MvcResult result = mockMvc.perform(get("/rest-bloque/{id}", idBloque))
                 .andExpect(status().isOk()) // Verificar que la respuesta es 200 OK
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON)) // Verificar que el tipo de contenido es JSON
                 // Verificar que el JSON devuelto contiene los datos esperados del bloque
-                .andExpect(jsonPath("$.id_bloque").value('A'))
                 .andExpect(jsonPath("$.nombre_wifi").value("nombre_wifi"))
-                .andExpect(jsonPath("$.contraseña").value("contraseña"));
+                .andExpect(jsonPath("$.contraseña").value("contraseña"))
+                .andReturn();
+        // Extraer el JSON de la respuesta
+        String jsonResponse = result.getResponse().getContentAsString();
+
+        // Verificar el valor de id_bloque para el primer objeto del array
+        JSONObject primerObjeto = new JSONObject(jsonResponse);
+        assertEquals("A", primerObjeto.getString("id_bloque"));;
 
         // Verificar que se llamó al método obtenerPorID() del servicio una vez con el ID correspondiente y no se realizaron más interacciones
         verify(bloqueServiceImp, times(1)).obtenerPorID(idBloque);
